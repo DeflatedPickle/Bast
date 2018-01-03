@@ -1,3 +1,5 @@
 #! Batch
 
+// I'm a comment.
+
 myvar = "Hello"
