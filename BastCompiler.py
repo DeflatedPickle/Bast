@@ -16,6 +16,6 @@ if __name__ == "__main__":
     parser = BastParser(stream)
     tree = parser.program()
 
-    interpret = BastCompiler()
+    compiler = BastCompiler()
     walker = antlr4.ParseTreeWalker()
-    walker.walk(interpret, tree)
+    walker.walk(compiler, tree)

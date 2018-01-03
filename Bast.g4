@@ -9,14 +9,18 @@ options {
  */
 
 program: shebang* code EOF;
-code: (line | COMMENT)+;
-line: statement;
+code: (line | block)+;
+block: STRT_BLOCK line* END_BLOCK;
+line: COMMENT | simple_stmt;
 
-var_dec: ID '=' (ID | NUMBER | BOOLEAN);
+assignment: ID '=' (ID | NUMBER | BOOLEAN | str_dec);
 str_dec: '"' (LETTER | NUMBER | BOOLEAN)* '"';
-statement: var_dec | str_dec;
+simple_stmt: assignment | str_dec;
 
-shebang: ('#' 'Batch') | ('#' 'Bash');
+//if_stmt:;
+//compound_stmt:;
+
+shebang: (SHEBANG 'Batch') | (SHEBANG 'Bash');
 
 /*
     Lexer Rules
@@ -24,11 +28,16 @@ shebang: ('#' 'Batch') | ('#' 'Bash');
 
 COMMENT: '//' ~[\r\n]*;
 
+SHEBANG: '#!';
+
+STRT_BLOCK: '{';
+END_BLOCK: '}';
+
 LOWER: [a-z];
 UPPER: [A-Z];
 LETTER: (LOWER | UPPER)+;
 NUMBER: [0-9]+;
 BOOLEAN: 'true' | 'false';
-ID: LOWER+ (LETTER | NUMBER | BOOLEAN)*;
+ID: LETTER+ (LETTER | NUMBER)*;
 
 WS: [ \t\r\n\f]+ -> skip;
