@@ -99,3 +99,11 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+.idea/
+
+Bast.tokens
+BastLexer.py
+BastLexer.tokens
+BastListener.py
+BastParser.py
