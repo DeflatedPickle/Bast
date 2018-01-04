@@ -35,9 +35,9 @@ END_BLOCK: '}';
 
 LOWER: [a-z];
 UPPER: [A-Z];
-LETTER: (LOWER | UPPER)+;
+LETTER: LOWER | UPPER;
 NUMBER: [0-9]+;
 BOOLEAN: 'true' | 'false';
-ID: LETTER+ (LETTER | NUMBER)*;
+ID: LETTER (LETTER | NUMBER)*;
 
 WS: [ \t\r\n\f]+ -> skip;
