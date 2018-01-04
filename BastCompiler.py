@@ -9,6 +9,9 @@ class BastCompiler(BastListener):
     def __init__(self):
         pass
 
+    def enterProgram(self, ctx:BastParser.ProgramContext):
+        print(f"Program: {ctx.getText()}\n")
+
 
 if __name__ == "__main__":
     lexer = BastLexer(antlr4.FileStream("example.bsst"))
