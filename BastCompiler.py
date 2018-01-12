@@ -6,8 +6,8 @@ from BastParser import BastParser
 
 
 class BastCompiler(BastListener):
-    def __init__(self):
-        pass
+    def __init__(self, lang):
+        self.lang = lang
 
     def enterProgram(self, ctx:BastParser.ProgramContext):
         print(f"Program: {ctx.getText()}\n")
@@ -19,6 +19,6 @@ if __name__ == "__main__":
     parser = BastParser(stream)
     tree = parser.program()
 
-    compiler = BastCompiler()
+    compiler = BastCompiler("batch")
     walker = antlr4.ParseTreeWalker()
     walker.walk(compiler, tree)

@@ -8,19 +8,16 @@ options {
     Parser Rules
  */
 
-program: shebang* code EOF;
-code: (line | block)+;
-block: STRT_BLOCK line* END_BLOCK;
+program: code EOF;
+code: line+; // (line | block)+;
+// block: STRT_BLOCK line* END_BLOCK;
 line: COMMENT | simple_stmt;
 
-assignment: ID '=' (ID | NUMBER | BOOLEAN | str_dec);
-str_dec: '"' (LETTER | NUMBER | BOOLEAN)* '"';
-simple_stmt: assignment | str_dec;
+assignment: ID '=' (ID | NUMBER | BOOLEAN | STRING);
+simple_stmt: assignment;
 
 //if_stmt:;
 //compound_stmt:;
-
-shebang: (SHEBANG 'Batch') | (SHEBANG 'Bash');
 
 /*
     Lexer Rules
@@ -28,16 +25,20 @@ shebang: (SHEBANG 'Batch') | (SHEBANG 'Bash');
 
 COMMENT: '//' ~[\r\n]*;
 
-SHEBANG: '#!';
-
-STRT_BLOCK: '{';
-END_BLOCK: '}';
+// STRT_BLOCK: '{';
+// END_BLOCK: '}';
 
 LOWER: [a-z];
 UPPER: [A-Z];
+
+SPACE: [ \t\r\n] -> skip;
+
+STRING: ["] ~["\r\n]* ["];
+
 LETTER: LOWER | UPPER;
 NUMBER: [0-9]+;
 BOOLEAN: 'true' | 'false';
+
 ID: LETTER (LETTER | NUMBER)*;
 
 WS: [ \t\r\n\f]+ -> skip;
